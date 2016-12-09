@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  .container{
+    max-width: 350px;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Nature Inspired Hybrid Toolbox Input Form</h2>
+  <br/>
+  <p></p>
+  <form action="SimulatedAnnealing/">
+    <div class="form-group">
+      <label for="par">Number of Particles:</label>
+      <input type="number" class="form-control" name="particles" min=1 id="par">
+    </div>
+    <div class="form-group">
+      <label for="var">Number of Variables:</label>
+      <input type="number" class="form-control" name="variables" min=1 id="var">
+    </div>
+    <div class="form-group">
+      <label for="func">Select Function:</label>
+      <select class="form-control" name="function" id="func">
+        <option >Select Function</option>
+        <option value="1"> f(x) = x&#8321; &sup2; + x&#8322; &sup3; + 1 </option>
+        <option value="2"> f(x) = x&sup3; + x +1 </option>
+        <option value="3"> f(x) = x&#8321; &sup2; + x&#8322; &sup2; </option>
+      </select>
+    </div>
+    <div class="form-inline">
+      <label>Domain of Function:</label><br/>
+    </div>
+    <div class="form-inline">
+      <label for="min">Min: </label>
+      <input type="number" name='min_v' class="form-control" id="min"><br/>
+    </div>
+    <br/>
+    <div class="form-inline">
+      <label for="max">Max:</label>
+      <input type="number" name='max_v' class="form-control" id="max">
+    </div>
+    <br/>
+    <button type = "submit" class = "btn btn-success">Submit</button>
+
+  </form>
+
+
+</div>
+
+</body>
+</html>
