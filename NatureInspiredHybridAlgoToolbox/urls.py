@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^SimulatedAnnealing/', include('SimulatedAnnealing.urls')),
-    url(r'^', include('Html.urls')),
+    url(r'^bat_algorithm/', include('batAlgorithm.urls')),
+    url(r'^x', include('Html.urls')),
 ]
