@@ -97,14 +97,14 @@ class BatAlgorithm():
         S = [[0.0 for i in range(self.D)] for j in range(self.NP)]
 
         self.init_bat()
- 
+ 		
         value =[]
+        iteration = []
         for t in range(self.N_Gen):
             
-            
+            generation = []
             value.append(self.f_min)
-       
-           
+			
             for i in range(self.NP):
                 rnd = random.uniform(0, 1)
                 self.Q[i] = self.Qmin + (self.Qmin - self.Qmax) * rnd
@@ -124,6 +124,8 @@ class BatAlgorithm():
 
                 Fnew = self.Fun(self.D, S[i])
 
+                generation.append(Fnew)
+
                 rnd = random.random
 
                 if (Fnew <= self.Fitness[i]) and (rnd < self.A):
@@ -136,11 +138,17 @@ class BatAlgorithm():
                         self.best[j] = S[i][j]
                     self.f_min = Fnew
 
+            # iteration.append(dict([(ii,generation[ii]) for ii in range(len(generation))]))
+            iteration.append(generation)
+
         print self.f_min
-      	size = len(value)
-        data = dict([(ii,value[ii]) for ii in range(size)])
+      	size = len(iteration)
+      	
+      	#gwen = dict([(ii,nu[ii]) for ii in range(size)])
+      	#print gwen
+        #data = dict([(ii,bomb[ii]) for ii in range(size)])
         result = {}
-        result["total iterations"]=data
+        result["total iterations"]=iteration
         result["best_solution"]=self.f_min
         result["iteration"] = t
         return JsonResponse(result)
