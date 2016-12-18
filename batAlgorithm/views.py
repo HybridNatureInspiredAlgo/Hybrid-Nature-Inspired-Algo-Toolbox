@@ -26,7 +26,7 @@ def run(request):
 		Algorithm = BatAlgorithm(int(request.GET.get('d')), int(request.GET.get('np')), int(request.GET.get('n_gen')), int(request.GET.get('a')), int(request.GET.get('r')), int(request.GET.get('qmin')), int(request.GET.get('qmax')), int(request.GET.get('lower')), int(request.GET.get('upper')), Fun)
 		result = Algorithm.move_bat()
 	patternTitle = r'<\s*h3\s*><[^>]*>[^(<)]*'
-	print result
+	print (result)
 	return HttpResponse(result, content_type="application/json")
 
 def Fun(D, sol):
@@ -141,8 +141,8 @@ class BatAlgorithm():
             # iteration.append(dict([(ii,generation[ii]) for ii in range(len(generation))]))
             iteration.append(generation)
 
-        print self.f_min
-      	size = len(iteration)
+        print (self.f_min)
+        size = len(iteration)
       	
       	#gwen = dict([(ii,nu[ii]) for ii in range(size)])
       	#print gwen
