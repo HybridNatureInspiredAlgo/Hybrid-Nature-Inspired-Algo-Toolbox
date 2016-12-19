@@ -31,7 +31,7 @@ def run(request):
 def printBestSolutionByPso(vector):
 	for i in range(len(vector)):
  		if i % 8 == 0:
- 			print("\n", end="")
+ 			print("\n" , end="")
  		if vector[i] >= 0.0:
  			print(' ', end="")
  		print("%.4f" % vector[i], end="")

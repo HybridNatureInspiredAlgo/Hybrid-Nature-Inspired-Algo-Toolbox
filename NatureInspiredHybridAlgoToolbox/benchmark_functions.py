@@ -4,20 +4,20 @@ import math
 #multimodal function
 def ackley(params):
 	#fetching parameters
-	if params['a']:
+	if 'a' in params:
 		a = int(params['a'])
 	else:
 		a = int(20)		#recommended value
-	if params['b']:
+	if 'b' in params:
 		b = int(params['b'])
 	else:
 		b = float(0.2)	#recommended value
-	if params['c']:
+	if 'c' in params:
 		c = int(params['c'])
 	else:
 		c = 2*math.pi
 
-	if params['d']:
+	if 'd' in params:
 		d = int(params['d'])
 	else:
 		d = 2	#not recommended but just to prevent code from breakdown
@@ -41,13 +41,12 @@ def ackley(params):
 
 # 2-D function:
 def cross_in_tray(params):
-
-	x = params['sol']
-
-	part1 = math.sqrt(x[0]*x[0]+x[1]*x[1])/math.pi
-	part2 = abs(math.sin(x[0])*math.sin(x[1]*math.exp(abs(100-part1)))) + 1
+	#x = [0.0,0.0]
+	x = list(params['sol'])
+	leng=len(x)-1
+	part1 = math.sqrt(x[0]*x[0]+x[leng]*x[leng])/math.pi
+	part2 = abs(math.sin(x[0])*math.sin(x[leng]*math.exp(abs(100-part1)))) + 1
 	part3 = -0.0001*math.pow(part2,0.1)
-
 	return part3
 
 
@@ -135,7 +134,8 @@ def rosenbrock(params):
 
 	for i in range(d-1):
 		fun = fun + 100*(x[i+1]-x[i]*x[i])*(x[i+1]-x[i]*x[i]) + (x[i]-1)*(x[i]-1)
-		return fun
+	
+	return fun
 
 #2D function
 def easom(params):

@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^SimulatedAnnealing/', include('SimulatedAnnealing.urls')),
     url(r'^bat_algorithm/', include('batAlgorithm.urls')),
     url(r'^pso_algorithm/', include('pso.urls')),
-    #url(r'^abc_algorithm/',include('ABC.urls')),
+    url(r'^abc_algorithm/',include('ABC.urls')),
     url(r'^x', include('Html.urls')),
 ]

@@ -19,7 +19,7 @@
   <h2>Nature Inspired Hybrid Toolbox Input Form</h2>
   <br/>
   <p></p>
-  <form action="/abc_algorithm/run">
+  <form action="/bat_algorithm/run">
     <div class="form-group">
       <label for="np">Population Size:</label>
       <input type="number" class="form-control" name="np" min=1 id="np">
@@ -32,33 +32,50 @@
       <label for="function">Select Function:</label>
       <select class="form-control" name="function" id="func">
         <option >Select Function</option>
-        <option value="1">  ackley function </option>
-        <option value="2"> cross_in_tray function </option>
-        <option value="3"> egg_holder function </option>
-        <option value="4">  levy function</option>
-        <option value="5"> rastrigin function </option>
-        <option value="6"> shubert function </option>
-        <option value="7">  sphere function</option>
-        <option value="8"> matyas function</option>
-        <option value="9"> rosenbrock function</option>
-        <option value="10">  easom function</option>
-        <option value="11"> styblinski_tang function</option>
+        <option value="1"> f(x) = alddf </option>
+        <option value="2"> f(x) = x&sup3; + x +1 </option>
+        <option value="3"> f(x) = x&#8321; &sup2; + x&#8322; &sup2; </option>
       </select>
     </div>
     <div class="form-inline">
       <label>Domain of Function:</label><br/>
     </div>
     <div class="form-inline">
-      <label for="lower">Min: </label>
-      <input type="number" name='lower' class="form-control" id="lower"><br/>
+      <label for="upper">Min: </label>
+      <input type="number" name='upper' class="form-control" id="upper"><br/>
     </div>
     <br/>
     <div class="form-inline">
-      <label for="upper">Max:</label>
-      <input type="number" name='upper' class="form-control" id="upper">
+      <label for="lower">Max:</label>
+      <input type="number" name='lower' class="form-control" id="lower">
     </div>
     <br/>
 
+
+    <div class="form-inline">
+      <label>Additional information:</label><br/>
+    </div>
+    <div class="form-inline">
+      <label for="a">Loudness: </label>
+      <input type="number" name='a' class="form-control" id="a"><br/>
+    </div>
+    <br/>
+    <div class="form-inline">
+      <label for="r">Pulse rate:</label>
+      <input type="number" name='r' class="form-control" id="r">
+    </div>
+    <br/>
+     <div class="form-inline">
+      <label for="qmin">Min frequency: </label>
+      <input type="number" name='qmin' class="form-control" id="qmin"><br/>
+    </div>
+    <br/>
+    <div class="form-inline">
+      <label for="qmax">Max frequency:</label>
+      <input type="number" name='qmax' class="form-control" id="qmax">
+    </div>
+    <br/>
+    <br/>
     <div class="form-inline">
       <label for="n_gen">Number of generations</label>
       <input type="number" name='n_gen' class="form-control" id="n_gen">

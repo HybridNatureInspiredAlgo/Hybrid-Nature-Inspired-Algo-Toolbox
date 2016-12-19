@@ -21,6 +21,7 @@ class BeeColony:
 		self.ub = float(input_data['upper_bound'])		#upper bound of the parameters. lb and ub can be defined as arrays for the problems of which parameters have different bounds
 
 		self.runtime = int(input_data['max_runtime'])		#Algorithm can be run many times in order to see its robustness
+		self.function_number = int(input_data['function']) 	#The number corresponding to functions as given in benchmark_functions
 		self.dizi1 = [0]*10
 
 		self.Foods = [[float(0) for x in range(self.D)] for y in range(self.FoodNumber)]
@@ -90,7 +91,7 @@ class BeeColony:
 
 			self.solution[j] = self.Foods[index][j]
 
-		self.f[index] = self.calculateFunction(self.solution,1)
+		self.f[index] = self.calculateFunction(self.solution,self.function_number)
 		self.fitness[index] = self.CalculateFitness(self.f[index])
 		self.trial[index] = 0
 
@@ -133,7 +134,7 @@ class BeeColony:
 	       		self.solution[self.param2change] = self.ub
 	
 	      
-			self.ObjValSol=self.calculateFunction(self.solution);
+			self.ObjValSol=self.calculateFunction(self.solution,self.function_number);
 	        self.FitnessSol=self.CalculateFitness(self.ObjValSol);
 	        
 	        
@@ -211,7 +212,7 @@ class BeeColony:
 				if self.solution[self.param2change] > self.ub:
 					self.solution[self.param2change] = self.ub
 
-				self.ObjValSol = self.calculateFunction(self.solution)
+				self.ObjValSol = self.calculateFunction(self.solution,self.function_number)
 				self.FitnessSol = self.CalculateFitness(self.ObjValSol)
 
 				#a greedy selection is applied between the current solution i and its mutant
@@ -304,7 +305,7 @@ class BeeColony:
 
 
 def run(request):
-	input_data = {'np':request.GET.get('np'),'limit':100,'maxCycle':request.GET.get('n_gen'),'dimensions':request.GET.get('d'),'lower_bound':request.GET.get('lower'),'upper_bound':request.GET.get('upper'),'max_runtime':30}
+	input_data = {'np':request.GET.get('np'),'limit':100,'maxCycle':request.GET.get('n_gen'),'dimensions':request.GET.get('d'),'lower_bound':request.GET.get('lower'),'upper_bound':request.GET.get('upper'),'max_runtime':30,'function':request.GET.get('function')}
 
 	bee = BeeColony(input_data)
 	iterr = int(0)
