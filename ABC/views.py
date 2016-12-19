@@ -90,7 +90,7 @@ class BeeColony:
 
 			self.solution[j] = self.Foods[index][j]
 
-		self.f[index] = self.calculateFunction(self.solution)
+		self.f[index] = self.calculateFunction(self.solution,1)
 		self.fitness[index] = self.CalculateFitness(self.f[index])
 		self.trial[index] = 0
 
@@ -245,8 +245,10 @@ class BeeColony:
 			self.init(maxtrialindex)
 
 
-	def calculateFunction(self,sol):
-		return self.myown(sol);
+	def calculateFunction(self,sol,num):
+		params={"sol":sol,"d":1}
+		return benchmark_functions.function(num,params)
+		#return self.myown(sol);
 
 	def sphere(self,sol):
 		j = int(0)
@@ -336,7 +338,7 @@ def run(request):
 
 
 def index(request):
-	x = benchmark_functions.test()
+
 	return render(request,'abc.html')
 
 
