@@ -39,7 +39,7 @@
 } 
 
 	$.ajax({
-                    url: 'http://127.0.0.1:8000/pso/?noOfParticles=50&functionCode=1&noOfIttration=100',
+                    url: 'http://127.0.0.1:8000/pso_algorithm/run/?noOfParticles=50&functionCode=1&noOfIttration=100',
                     type: 'GET',
                     success: function(data){
                     	let jsonObject = JSON.parse(data);
