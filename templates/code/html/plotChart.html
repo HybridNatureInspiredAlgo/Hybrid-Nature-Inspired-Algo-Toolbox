@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	function plot(data) {
+
+		var list = [
+		];
+
+		max = parseInt(data["length"]);
+		var i;
+		for(i = 0 ; i  < max ; i++){
+			var t ={};
+			t["x"] = parseFloat(data[i.toString()]["ittration"]);
+			t["y"] = parseFloat(data[i.toString()]["bestSolForIttration"]);
+			list.push(t);
+		}
+
+		
+			var chart = new CanvasJS.Chart("chartContainer", {
+				title: {
+					text: "PSO ittrations : x -> ittrations , y -> values"
+				},
+				data: [
+				{
+					type: "splineArea",
+					dataPoints: list
+				}
+				]
+			});
+
+			chart.render();
+		
+
+
+} 
+
+	$.ajax({
+                    url: 'http://127.0.0.1:8000/pso/?noOfParticles=50&functionCode=1&noOfIttration=100',
+                    type: 'GET',
+                    success: function(data){
+                    	let jsonObject = JSON.parse(data);
+                    		
+                            plot(jsonObject);
+                    },
+                    error:function(){
+                        
+                    },
+            });
+
+	</script>
+	<script src="../../canvasjs.min.js"></script>
+	<title>CanvasJS Example</title>
+</head>
+<body>
+	<div id="chartContainer" style="height: 400px; width: 100%;">
+	</div>
+</body>
+</html>
