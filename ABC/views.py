@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
 # Create your views here.
-
-
 import random
 import math
+from NatureInspiredHybridAlgoToolbox import benchmark_functions
 
 class BeeColony:
 	'functionality of bee colony algorithm'
@@ -303,7 +302,7 @@ class BeeColony:
 
 
 def run(request):
-	input_data = {'np':20,'limit':100,'maxCycle':2500,'dimensions':1,'lower_bound':-15.12,'upper_bound':15.12,'max_runtime':30}
+	input_data = {'np':request.GET.get('np'),'limit':100,'maxCycle':request.GET.get('n_gen'),'dimensions':request.GET.get('d'),'lower_bound':request.GET.get('lower'),'upper_bound':request.GET.get('upper'),'max_runtime':30}
 
 	bee = BeeColony(input_data)
 	iterr = int(0)
@@ -322,13 +321,26 @@ def run(request):
 			bee.MemorizeBestSource()
 			bee.SendScoutBees()
 
-		for j in range(bee.D):
-			print("GlobalParam[",(j+1),"]:",bee.GlobalParams[j])
+		#for j in range(bee.D):
+		#	print("GlobalParam[",(j+1),"]:",bee.GlobalParams[j])
 
-		print((run+1),".run:",bee.GlobalMin)
+		#print((run+1),".run:",bee.GlobalMin)
 		bee.GlobalMins[run] = bee.GlobalMin
 		mean = mean + bee.GlobalMin
 
 	mean = mean/bee.runtime
-	print("Means  of ",bee.runtime,"runs: ",mean)
+	#print("Means  of ",bee.runtime,"runs: ",mean)
+	return HttpResponse(mean)
 
+
+
+
+def index(request):
+	x = benchmark_functions.test()
+	return render(request,'abc.html')
+
+
+def search(request):
+	for i in details:
+		data[i] = request.GET.get(i)
+	return HttpResponse(json.dumps(data))
