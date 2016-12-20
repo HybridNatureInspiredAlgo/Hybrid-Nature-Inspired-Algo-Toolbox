@@ -73,6 +73,27 @@ def getPresentMinValue(position , functionCode):
 		if functionCode == "4":
 			val += (xi*xi) + (4*xi) +2
 
+		if functionCode == "6":
+			tempVal = (xi*math.sin(xi)) + (0.1*xi)
+			if tempVal < 0.0:
+				tempVal = tempVal*-1
+			val += tempVal
+
+		if functionCode == "7":
+			val += (xi*xi) + (4*xi) +2
+
+		if functionCode == "8":
+			val += (xi * xi) - (10 * math.cos(2 * math.pi * xi)) + 10
+
+		if functionCode == "9":
+			part1 = math.sqrt(abs(xi + 2/2 + 47))
+			part2 = math.sqrt(abs(2 - (xi+47) ) )
+
+			val += -(xi + 47)*math.sin(part1) -2*math.sin(part2)
+
+		if functionCode == "10":
+			val += (xi*xi) + (4*xi) +2
+
 	return val
 
 class Particle:
