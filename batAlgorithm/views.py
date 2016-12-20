@@ -8,7 +8,7 @@ from django.http import HttpResponse
 import random
 import random 
 import json
-
+from NatureInspiredHybridAlgoToolbox import benchmark_functions
 
 details = "particles","variables", "min_v", "max_v", "function" 
 data = {}
@@ -23,18 +23,14 @@ def search(request):
 
 def run(request):
 	for i in range(1):
-		Algorithm = BatAlgorithm(int(request.GET.get('d')), int(request.GET.get('np')), int(request.GET.get('n_gen')), int(request.GET.get('a')), int(request.GET.get('r')), int(request.GET.get('qmin')), int(request.GET.get('qmax')), int(request.GET.get('lower')), int(request.GET.get('upper')), Fun)
+		Algorithm = BatAlgorithm(int(request.GET.get('d')), int(request.GET.get('np')), int(request.GET.get('n_gen')), int(request.GET.get('a')), int(request.GET.get('r')), int(request.GET.get('qmin')), int(request.GET.get('qmax')), int(request.GET.get('lower')), int(request.GET.get('upper')), request.GET.get('function'))
 		result = Algorithm.move_bat()
 	patternTitle = r'<\s*h3\s*><[^>]*>[^(<)]*'
-	print (result)
+	#print (result)
+
 	return HttpResponse(result, content_type="application/json")
 
-def Fun(D, sol):
-    val = 0.0
-    # print(D,sol)
-    for i in range(D):
-        val = val + sol[i] * sol[i]
-    return val
+
 
 
 class BatAlgorithm():
@@ -59,8 +55,24 @@ class BatAlgorithm():
         self.Sol = [[0 for i in range(self.D)] for j in range(self.NP)]  #population of solutions
         self.Fitness = [0] * self.NP  #fitness
         self.best = [0] * self.D  #best solution
-        self.Fun = function
+        self.Fun_val = function
+        self.output = {}
+        self.object_function_count = int(0)
 
+    def Fun(self,D,sol):
+        val = 0.0
+        # print(D,sol)
+        # for i in range(D):
+        #     val = val + sol[i] * sol[i]
+        params = {'d':D,'sol':sol}
+        value = float(0)
+        item = {}
+        value = benchmark_functions.function(int(self.Fun_val),params)
+        item["bestSolutionForIteration"] = value
+        self.output[self.object_function_count] = item
+        self.object_function_count +=1
+        #print(value)
+        return value
 
     def best_bat(self):
         i = 0
@@ -141,14 +153,15 @@ class BatAlgorithm():
             # iteration.append(dict([(ii,generation[ii]) for ii in range(len(generation))]))
             iteration.append(generation)
 
-        print (self.f_min)
+        #print (self.f_min)
         size = len(iteration)
       	
       	#gwen = dict([(ii,nu[ii]) for ii in range(size)])
       	#print gwen
         #data = dict([(ii,bomb[ii]) for ii in range(size)])
-        result = {}
-        result["total iterations"]=iteration
-        result["best_solution"]=self.f_min
-        result["iteration"] = t
-        return JsonResponse(result)
+        # result = {}
+        # result["total iterations"]=iteration
+        # result["best_solution"]=self.f_min
+        # result["iteration"] = t
+        self.output["length"] = self.object_function_count
+        return JsonResponse(self.output)
