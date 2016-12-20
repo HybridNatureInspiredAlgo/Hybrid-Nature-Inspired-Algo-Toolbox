@@ -128,8 +128,8 @@ class BatAlgorithm():
                     S[i][j] = self.simplebounds(S[i][j], self.Lb[j],
                                                 self.Ub[j])
 
-                rnd = random.random
-
+                rnd = random.random()
+                # rnd = 100
                 if rnd > self.r:
                     for j in range(self.D):
                         S[i][j] = self.best[j] + 0.001 * random.gauss(0, 1)
@@ -138,7 +138,7 @@ class BatAlgorithm():
 
                 generation.append(Fnew)
 
-                rnd = random.random
+                rnd = random.random()
 
                 if (Fnew <= self.Fitness[i]) and (rnd < self.A):
                     for j in range(self.D):
