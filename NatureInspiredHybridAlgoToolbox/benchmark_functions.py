@@ -4,6 +4,7 @@ import math
 #multimodal function
 def ackley(params):
 	#fetching parameters
+	#print(params)
 	if 'a' in params:
 		a = int(params['a'])
 	else:
@@ -162,7 +163,10 @@ def styblinski_tang(params):
 
 
 def function(index,params):
+	
+	
 	if index==1:
+		#print(index)
 		return ackley(params)
 
 	elif index==2:
