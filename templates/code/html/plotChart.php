@@ -34,8 +34,8 @@ if($type == "single"){
   	$function = $_GET['functionCode'];
   	$a = $_GET['a1'];
   	$r = $_GET['r1'];
-  	$qmin = $_GET['qmin'];
-  	$qmax = $_GET['qmax'];
+  	$qmin = $_GET['qmin1'];
+  	$qmax = $_GET['qmax1'];
 
   	$url = $url."bat_algorithm/run?d=".$d."&np=".$np."&n_gen=".$n_gen."&a=".$a."&r=".$r."&qmin=".$qmin."&qmax=".$qmax."&lower=".$lower_bound."&upper=".$upper_bound."&function=".$function;
 
@@ -83,9 +83,7 @@ else{
 		];
 
 		max = parseInt(data["length"]);
-		if max > 1000:
-			max = 1000;
-
+		
 		var i;
 		for(i = 0 ; i  < max ; i++){
 			var t ={};
@@ -93,11 +91,11 @@ else{
 			t["y"] = parseFloat(data[i.toString()]["bestSolutionForIteration"]);
 			list.push(t);
 		}
-		 console.log(list);
+		 // console.log(list);
 		
 			var chart = new CanvasJS.Chart("chartContainer", {
 				title: {
-					text: "PSO ittrations : x -> ittrations , y -> values"
+					text: "<?php echo $algo; ?> : x -> ittrations , y -> values"
 				},
 				data: [
 				{
@@ -118,6 +116,7 @@ else{
                     url: "<?php echo $url ?>",
                     type: 'GET',
                     success: function(data){
+                      console.log(data);
                     	let jsonObject = JSON.parse(data);
                     		
                             plot(jsonObject);

@@ -23,12 +23,12 @@ def search(request):
 
 def run(request):
 	for i in range(1):
-		Algorithm = BatAlgorithm(int(request.GET.get('d')), int(request.GET.get('np')), int(request.GET.get('n_gen')), int(request.GET.get('a')), int(request.GET.get('r')), int(request.GET.get('qmin')), int(request.GET.get('qmax')), int(request.GET.get('lower')), int(request.GET.get('upper')), request.GET.get('function'))
+		Algorithm = BatAlgorithm(int(request.GET.get('d')), int(request.GET.get('np')), int(request.GET.get('n_gen')), int(request.GET.get('a')), int(request.GET.get('r')), int(request.GET.get('qmin')), int(request.GET.get('qmax')), int(request.GET.get('lower')), int(request.GET.get('upper')), int(request.GET.get('function')))
 		result = Algorithm.move_bat()
-	patternTitle = r'<\s*h3\s*><[^>]*>[^(<)]*'
+	# patternTitle = r'<\s*h3\s*><[^>]*>[^(<)]*'
 	#print (result)
 
-	return HttpResponse(result, content_type="application/json")
+	return HttpResponse(result)
 
 
 
@@ -128,8 +128,8 @@ class BatAlgorithm():
                     S[i][j] = self.simplebounds(S[i][j], self.Lb[j],
                                                 self.Ub[j])
 
-                rnd = random.random
-
+                rnd = random.random()
+                # rnd = 100
                 if rnd > self.r:
                     for j in range(self.D):
                         S[i][j] = self.best[j] + 0.001 * random.gauss(0, 1)
@@ -138,7 +138,7 @@ class BatAlgorithm():
 
                 generation.append(Fnew)
 
-                rnd = random.random
+                rnd = random.random()
 
                 if (Fnew <= self.Fitness[i]) and (rnd < self.A):
                     for j in range(self.D):
@@ -164,4 +164,4 @@ class BatAlgorithm():
         # result["best_solution"]=self.f_min
         # result["iteration"] = t
         self.output["length"] = self.object_function_count
-        return JsonResponse(self.output)
+        return HttpResponse(str(json.dumps(self.output)))
