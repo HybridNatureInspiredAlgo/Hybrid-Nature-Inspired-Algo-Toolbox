@@ -24,6 +24,9 @@ class BeeColony:
 		self.function_number = int(input_data['function']) 	#The number corresponding to functions as given in benchmark_functions
 		self.dizi1 = [0]*10
 
+		self.objective_function_count = int(0)
+		self.output = {}
+
 		self.Foods = [[float(0) for x in range(self.D)] for y in range(self.FoodNumber)]
 		# Foods is the population of food sources. Each row of Foods matrix is a vector holding D parameters to be optimized. The number of rows of Foods matrix equals to the FoodNumber
 		self.f = [float(0) for x in range(self.FoodNumber)]
@@ -234,8 +237,13 @@ class BeeColony:
 
 
 	def calculateFunction(self,sol,num):
-		params={"sol":sol,"d":1}
-		return benchmark_functions.function(num,params)
+		params={"sol":sol,"d":self.D}
+		self.objective_function_count += 1
+		value = float(0)
+		value = benchmark_functions.function(num,params)
+		#item = {"bestSolutionForIteration":value}
+		#self.output[self.objective_function_count] = item
+		return value
 		#return self.myown(sol);
 
 	def sphere(self,sol):
@@ -299,7 +307,8 @@ def run(request):
 	run = int(0)
 	j = int(0)
 	mean = float(0)
-
+	data = {}
+	item = {}
 	for run in range(bee.runtime):
 		bee.initial()
 		bee.MemorizeBestSource()
@@ -310,17 +319,21 @@ def run(request):
 			bee.SendOnLookerBees()
 			bee.MemorizeBestSource()
 			bee.SendScoutBees()
-
+				
 		#for j in range(bee.D):
 		#	print("GlobalParam[",(j+1),"]:",bee.GlobalParams[j])
 
 		#print((run+1),".run:",bee.GlobalMin)
 		bee.GlobalMins[run] = bee.GlobalMin
+		item["bestSolutionForIteration"] = bee.GlobalMin
+		data[bee.objective_function_count] = item
 		mean = mean + bee.GlobalMin
 
 	mean = mean/bee.runtime
 	#print("Means  of ",bee.runtime,"runs: ",mean)
-	return HttpResponse(mean)
+	data["len"] = bee.objective_function_count
+	#return HttpResponse(mean)
+	return JsonResponse(data)
 
 
 

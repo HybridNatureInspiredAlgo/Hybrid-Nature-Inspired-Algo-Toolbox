@@ -196,7 +196,5 @@ def function(index,params):
 		return styblinski_tang(params)
 
 
-def test():
-	return "haha"
 
 
