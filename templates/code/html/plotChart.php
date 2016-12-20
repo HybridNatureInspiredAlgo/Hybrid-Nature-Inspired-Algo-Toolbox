@@ -24,6 +24,22 @@ if($type == "single"){
 
 
   }
+  elseif($algo == "bat"){
+
+  	$np = $_GET['particles'];
+  	$n_gen = $_GET['iteration'];
+  	$d = $_GET['variables'];
+  	$lower_bound = $_GET['min_v'];
+  	$upper_bound = $_GET['max_v'];
+  	$function = $_GET['functionCode'];
+  	$a = $_GET['a1'];
+  	$r = $_GET['r1'];
+  	$qmin = $_GET['qmin'];
+  	$qmax = $_GET['qmax'];
+
+  	$url = $url."bat_algorithm/run?d=".$d."&np=".$np."&n_gen=".$n_gen."&a=".$a."&r=".$r."&qmin=".$qmin."&qmax=".$qmax."&lower=".$lower_bound."&upper=".$upper_bound."&function=".$function;
+
+  }
 
 }
 else{
@@ -67,6 +83,9 @@ else{
 		];
 
 		max = parseInt(data["length"]);
+		if max > 1000:
+			max = 1000;
+
 		var i;
 		for(i = 0 ; i  < max ; i++){
 			var t ={};
