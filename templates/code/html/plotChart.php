@@ -1,6 +1,6 @@
 ﻿<?php
 $type = $_GET['type'];
-$yy = 100;
+$url = "http://192.168.0.115:8000/"
 if($type == "single"){
   $algo = $_GET['algo1'];
 
@@ -8,6 +8,8 @@ if($type == "single"){
     $noOfParticles = $_GET['particles'];
     $functionCode = $_GET['functionCode'];
     $noOfIttration = $_GET['iteration'];
+    $url = $url."pso_algorithm/run/?noOfParticles=".$noOfParticles."&functionCode=".$functionCode."&noOfIttration=".$noOfIttration;
+
   }
   elseif($algo == "abc"){
   	$np = $_GET['particles'];
@@ -16,6 +18,8 @@ if($type == "single"){
   	$lower_bound = $_GET['min_v'];
   	$upper_bound = $_GET['max_v'];
   	$function = $_GET['functionCode'];
+  	$url = $url."abc_algorithm/run?np=".$np."&function=".$function."&lower=".$lower_bound."&upper=".$upper_bound."&n_gen=".$maxCycle."&d=".$variables;
+
 
   }
 
@@ -90,7 +94,7 @@ else{
 } 
 
 	$.ajax({
-                    url: "http://192.168.0.115:8000/pso_algorithm/run/?noOfParticles=<?php echo $noOfParticles ?>&functionCode=<?php echo $functionCode ?>&noOfIttration=<?php echo $noOfIttration ?>",
+                    url: "<?php echo $url ?>",
                     type: 'GET',
                     success: function(data){
                     	let jsonObject = JSON.parse(data);
