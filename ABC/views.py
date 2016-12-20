@@ -37,7 +37,6 @@ class BeeColony:
 		self.solution = [float(0) for x in range(self.D)]
 		#New solution (neighbour) produced by v_{ij}=x_{ij}+\phi_{ij}*(x_{kj}-x_{ij}) j is a randomly chosen parameter and k is a randomlu chosen solution different from i
 
-		
 		self.ObjValSol = float(0)	#Objective function value of new solution
 		self.FitnessSol = float(0) 	#Fitness value of new solution
 		self.neighbour = int(0)		#neighbour corresponds to k in equation v_{ij}=x_{ij}+\phi_{ij}*(x_{kj}-x_{ij})
@@ -47,7 +46,6 @@ class BeeColony:
 		self.GlobalMins = [float(0) for x in range(self.runtime)]		#GlobalMins holds the GlobalMin of each run in multiple runs
 		self.r = float(0)										# A random number in the range [0,1
 
-	
 
 	#a function pointer returning double and taking a D-dimensional array as argument 
 	#If your function takes additional arguments then change function pointer definition and lines calling "...=function(solution);" in the code
@@ -63,7 +61,6 @@ class BeeColony:
 
 		return result
 
-
 	#The best food source is memorized
 	def MemorizeBestSource(self):
 		i = int(0)
@@ -76,25 +73,19 @@ class BeeColony:
 					self.GlobalParams[j] = self.Foods[i][j]
 
 
-
 	#Variables are initialized in the range [lb,ub]. If each parameter has different range, use arrays lb[j], ub[j] instead of lb and ub 
 	#Counters of food sources are also initialized in this function
-	
+
 
 	def init(self,index):
 		j = int(0)
 		for j in range(self.D):
-			
 			self.r = float(float(random.random()*32767)/(float(32768)))
-			
 			self.Foods[index][j] = self.r*(self.ub-self.lb)+self.lb
-
 			self.solution[j] = self.Foods[index][j]
-
-		self.f[index] = self.calculateFunction(self.solution,self.function_number)
-		self.fitness[index] = self.CalculateFitness(self.f[index])
-		self.trial[index] = 0
-
+			self.f[index] = self.calculateFunction(self.solution,self.function_number)
+			self.fitness[index] = self.CalculateFitness(self.f[index])
+			self.trial[index] = 0
 
 
 	#All food sources are initialized 
@@ -106,13 +97,12 @@ class BeeColony:
 		for i in range(self.D):
 			self.GlobalParams[i] = self.Foods[0][i]
 
-
 	def SendEmployedBees(self):
 		i = int(0)
 		j = int(0)
 		#Employed Bee Phase		
 		for i in range(self.FoodNumber):
-			#The parameter to be changed is determined randomly
+		#The parameter to be changed is determined randomly
 			self.r = float(float(random.random()*32767)/(float(32768)))
 			self.param2change = int(self.r*self.D)
 
@@ -122,44 +112,41 @@ class BeeColony:
 
 			for j in range(self.D):
 				self.solution[j] = self.Foods[i][j]
-	
-	       	#v_{ij}=x_{ij}+\phi_{ij}*(x_{kj}-x_{ij})
-	       	self.r = float(float(random.random()*32767)/(float(32768)))
-	       	self.solution[self.param2change] = self.Foods[i][self.param2change]+(self.Foods[i][self.param2change] - self.Foods[self.neighbour][self.param2change])*(self.r - 0.5)*2	
 
-	       	#if generated parameter value is out of boundaries, it is shifted onto the boundaries
-	       	if self.solution[self.param2change]<self.lb:
-	       		self.solution[self.param2change]=self.lb
-	       	if self.solution[self.param2change]>self.ub:
-	       		self.solution[self.param2change] = self.ub
-	
-	      
+			#v_{ij}=x_{ij}+\phi_{ij}*(x_{kj}-x_{ij})
+			self.r = float(float(random.random()*32767)/(float(32768)))
+			self.solution[self.param2change] = self.Foods[i][self.param2change]+(self.Foods[i][self.param2change] - self.Foods[self.neighbour][self.param2change])*(self.r - 0.5)*2	
+			#if generated parameter value is out of boundaries, it is shifted onto the boundaries
+			if self.solution[self.param2change]<self.lb:
+				self.solution[self.param2change]=self.lb
+			if self.solution[self.param2change]>self.ub:
+				self.solution[self.param2change] = self.ub
+
 			self.ObjValSol=self.calculateFunction(self.solution,self.function_number);
-	        self.FitnessSol=self.CalculateFitness(self.ObjValSol);
-	        
-	        
-	        #a greedy selection is applied between the current solution i and its mutant
-	        if self.FitnessSol>self.fitness[i]:
-	        	#If the mutant solution is better than the current solution i, replace the solution with the mutant and reset the trial counter of solution i
-	        	self.trial[i]=0
-	        	for j in range(self.D):
-	        		self.Foods[i][j] = self.solution[j]
-	        		self.f[i] = self.ObjValSol
-	        		self.fitness[i] = self.FitnessSol
-	        else:
-	        	#if the solution i can not be improved, increase its trial counter
-	        	self.trial[i] = self.trial[i]+1
+			self.FitnessSol=self.CalculateFitness(self.ObjValSol);
 
-	        #end of employed bee phase
+			#a greedy selection is applied between the current solution i and its mutant
+			if self.FitnessSol>self.fitness[i]:
+				#If the mutant solution is better than the current solution i, replace the solution with the mutant and reset the trial counter of solution i
+				self.trial[i]=0
+				for j in range(self.D):
+					self.Foods[i][j] = self.solution[j]
+					self.f[i] = self.ObjValSol
+					self.fitness[i] = self.FitnessSol
+			else:
+			#if the solution i can not be improved, increase its trial counter
+			self.trial[i] = self.trial[i]+1
 
-	
+
+		#end of employed bee phase
+
 
 	#A food source is chosen with the probability which is proportioal to its quality*/
 	#Different schemes can be used to calculate the probability values*/
 	#For example prob(i)=fitness(i)/sum(fitness)*/
 	#or in a way used in the metot below prob(i)=a*fitness(i)/max(fitness)+b*/
 	#probability values are calculated by using fitness values and normalized by dividing maximum fitness value*/
-	
+
 	def CalculateProbabilities(self):
 		i = int(0)
 		

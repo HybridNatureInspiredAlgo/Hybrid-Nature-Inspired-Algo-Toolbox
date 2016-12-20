@@ -10,6 +10,12 @@ if($type == "single"){
     $noOfIttration = $_GET['iteration'];
   }
   elseif($algo == "abc"){
+  	$np = $_GET['particles'];
+  	$maxCycle = $_GET['iteration'];
+  	$dimensions = $_GET['variables'];
+  	$lower_bound = $_GET['min_v'];
+  	$upper_bound = $_GET['max_v'];
+  	$function = $_GET['functionCode'];
 
   }
 
