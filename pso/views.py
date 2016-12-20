@@ -12,7 +12,11 @@ def run(request):
 	functionCode = str(request.GET.get('functionCode','empty'))
 	noOfParticles = request.GET.get('noOfParticles','empty')
 	noOfIttration = request.GET.get('noOfIttration','empty')
-	variables = 3
+	if functionCode == "5":
+		variables = 10
+	else:
+		variables = 1
+	
 	num_particles = int(noOfParticles)
 	max_ittrations = int(noOfIttration)
 	min_v = request.GET.get('min_v','empty')
@@ -53,10 +57,16 @@ def getPresentMinValue(position , functionCode):
 			val += tempVal
 
 		if functionCode == "2":
+			val += (xi*xi) + (4*xi) +2
+
+		if functionCode == "5":
 			val += (xi * xi) - (10 * math.cos(2 * math.pi * xi)) + 10
 
 		if functionCode == "3":
-			val += (xi-4)*xi
+			part1 = math.sqrt(abs(xi + 2/2 + 47))
+			part2 = math.sqrt(abs(2 - (xi+47) ) )
+
+			val += -(xi + 47)*math.sin(part1) -2*math.sin(part2)
 
 		if functionCode == "4":
 			val += (xi*xi) + (4*xi) +2
