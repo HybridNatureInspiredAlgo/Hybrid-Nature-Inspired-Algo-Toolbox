@@ -92,6 +92,7 @@ def Solve(max_ittrations, n, variables, minx, maxx , functionCode):
 
 	ittrList = []
 	json = '{"length":' + str(max_ittrations) + ','
+	oFunctionCalledCount = 0
 	rnd = random.Random(0)
 	swarm = [Particle(variables, minx, maxx, i , functionCode) for i in range(n)] 
 
@@ -113,10 +114,10 @@ def Solve(max_ittrations, n, variables, minx, maxx , functionCode):
 
 			bestSolForIttration = "%.3f" % best_swarm_err
 
-			if ittration == max_ittrations - 1:
-				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "}"
-			else:
-				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "},"
+			#if ittration == max_ittrations - 1:
+			#	json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "}"
+			#else:
+			#	json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "},"
 
 			data = {}
 			data['ittration'] = str(ittration)
@@ -141,7 +142,8 @@ def Solve(max_ittrations, n, variables, minx, maxx , functionCode):
 				swarm[i].position[k] += swarm[i].velocity[k]
   
 			swarm[i].error = getPresentMinValue(swarm[i].position , functionCode)
-
+			json = json + '"' + str(oFunctionCalledCount) +'"' + ':' +'{"oFunctionCalledCount":' + str(oFunctionCalledCount) + ', "bestSolutionForIteration":' + str(swarm[i].error) + "},"
+			oFunctionCalledCount = oFunctionCalledCount + 1
 			if swarm[i].error < swarm[i].best_part_err:
 				swarm[i].best_part_err = swarm[i].error
 				swarm[i].best_part_pos = copy.copy(swarm[i].position)
@@ -153,7 +155,7 @@ def Solve(max_ittrations, n, variables, minx, maxx , functionCode):
 		printBestSolutionByPso(best_swarm_pos)
     
 		ittration += 1
-	json = json + "}"
+	json = json + '"999999999999":{"test":"data"}}'
 	finalData = {}
 	finalData['best'] = best_swarm_pos
 	finalData['report'] = json
