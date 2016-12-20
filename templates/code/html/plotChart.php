@@ -8,7 +8,9 @@ if($type == "single"){
     $noOfParticles = $_GET['particles'];
     $functionCode = $_GET['functionCode'];
     $noOfIttration = $_GET['iteration'];
-    $url = $url."pso_algorithm/run/?noOfParticles=".$noOfParticles."&functionCode=".$functionCode."&noOfIttration=".$noOfIttration;
+    $lower_bound = $_GET['min_v'];
+  	$upper_bound = $_GET['max_v'];
+    $url = $url."pso_algorithm/run/?noOfParticles=".$noOfParticles."&functionCode=".$functionCode."&noOfIttration=".$noOfIttration."&min_v=".$lower_bound."&max_v=".$upper_bound;
 
   }
   elseif($algo == "abc"){
@@ -68,8 +70,8 @@ else{
 		var i;
 		for(i = 0 ; i  < max ; i++){
 			var t ={};
-			t["x"] = parseFloat(data[i.toString()]["ittration"]);
-			t["y"] = parseFloat(data[i.toString()]["bestSolForIttration"]);
+			t["x"] = parseFloat(i);
+			t["y"] = parseFloat(data[i.toString()]["bestSolutionForIteration"]);
 			list.push(t);
 		}
 		 console.log(list);
