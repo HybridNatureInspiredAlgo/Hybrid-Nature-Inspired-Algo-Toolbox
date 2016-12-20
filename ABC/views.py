@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+import json
 from django.http import HttpResponse
 # Create your views here.
 import random
@@ -334,7 +335,18 @@ def run(request):
 	#data["len"] = bee.objective_function_count
 	bee.output["length"] = bee.objective_function_count
 	#return HttpResponse(mean)
-	return JsonResponse(bee.output)
+
+	raw_data = {};
+	raw_data['length'] = '4';
+	raw_data[0] = bee.output[0];
+	raw_data[1] = bee.output[1];
+	raw_data[2] = bee.output[2];
+	raw_data[3] = bee.output[3];
+
+
+	return HttpResponse(str(json.dumps(bee.output)))
+
+	# return HttpResponse('{"length":4,"0":{"bestSolutionForIteration":0.0012},"1":{"bestSolutionForIteration":0.62}, "2":{"bestSolutionForIteration":0.72},"3":{"bestSolutionForIteration":1.0012} }')
 
 
 
