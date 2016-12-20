@@ -95,7 +95,7 @@ else{
 		
 			var chart = new CanvasJS.Chart("chartContainer", {
 				title: {
-					text: "<?php echo $algo; ?> : x -> ittrations , y -> values"
+					text: "<?php echo $algo; ?> Algorhithm  || X : Objective Function Call , Y : Best Solution at That Call"
 				},
 				data: [
 				{
