@@ -15,10 +15,12 @@ def run(request):
 	variables = 3
 	num_particles = int(noOfParticles)
 	max_ittrations = int(noOfIttration)
+	min_v = request.GET.get('min_v','empty')
+	max_v = request.GET.get('max_v','empty')
 
 	print("particles = " + str(num_particles))
 	print("max ittrations    = " + str(max_ittrations))
-	finalData = Solve(max_ittrations, num_particles,variables, -10.0, 10.0 , functionCode)
+	finalData = Solve(max_ittrations, num_particles,variables, int(min_v) , int(max_v) , functionCode)
 	best_position = finalData['best']
 	printBestSolutionByPso(best_position)
 	bestSol = getPresentMinValue(best_position , functionCode)
@@ -102,9 +104,9 @@ def Solve(max_ittrations, n, variables, minx, maxx , functionCode):
 			bestSolForIttration = "%.3f" % best_swarm_err
 
 			if ittration == max_ittrations - 1:
-				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolForIttration":' + str(bestSolForIttration) + "}"
+				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "}"
 			else:
-				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolForIttration":' + str(bestSolForIttration) + "},"
+				json = json + '"' + str(ittration) +'"' + ':' +'{"ittration":' + str(ittration) + ', "bestSolutionForIteration":' + str(bestSolForIttration) + "},"
 
 			data = {}
 			data['ittration'] = str(ittration)
