@@ -238,11 +238,11 @@ class BeeColony:
 
 	def calculateFunction(self,sol,num):
 		params={"sol":sol,"d":self.D}
-		self.objective_function_count += 1
 		value = float(0)
 		value = benchmark_functions.function(num,params)
-		#item = {"bestSolutionForIteration":value}
-		#self.output[self.objective_function_count] = item
+		item = {"bestSolutionForIteration":value}
+		self.output[self.objective_function_count] = item
+		self.objective_function_count += 1
 		return value
 		#return self.myown(sol);
 
@@ -307,8 +307,8 @@ def run(request):
 	run = int(0)
 	j = int(0)
 	mean = float(0)
-	data = {}
-	item = {}
+	#data = {}
+	#item = {}
 	for run in range(bee.runtime):
 		bee.initial()
 		bee.MemorizeBestSource()
@@ -325,15 +325,16 @@ def run(request):
 
 		#print((run+1),".run:",bee.GlobalMin)
 		bee.GlobalMins[run] = bee.GlobalMin
-		item["bestSolutionForIteration"] = bee.GlobalMin
-		data[bee.objective_function_count] = item
+		#item["bestSolutionForIteration"] = bee.GlobalMin
+		#data[bee.objective_function_count] = item
 		mean = mean + bee.GlobalMin
 
 	mean = mean/bee.runtime
 	#print("Means  of ",bee.runtime,"runs: ",mean)
-	data["len"] = bee.objective_function_count
+	#data["len"] = bee.objective_function_count
+	bee.output["length"] = bee.objective_function_count
 	#return HttpResponse(mean)
-	return JsonResponse(data)
+	return JsonResponse(bee.output)
 
 
 
