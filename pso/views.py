@@ -14,8 +14,10 @@ def run(request):
 	noOfIttration = request.GET.get('noOfIttration','empty')
 	if functionCode == "5":
 		variables = 10
-	else:
+	elif functionCode == "3":
 		variables = 1
+	else:
+		variables = 10
 	
 	num_particles = int(noOfParticles)
 	max_ittrations = int(noOfIttration)
