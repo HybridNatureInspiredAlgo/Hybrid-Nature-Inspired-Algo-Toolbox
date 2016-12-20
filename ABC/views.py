@@ -238,11 +238,11 @@ class BeeColony:
 
 	def calculateFunction(self,sol,num):
 		params={"sol":sol,"d":self.D}
-		self.objective_function_count += 1
 		value = float(0)
 		value = benchmark_functions.function(num,params)
 		item = {"bestSolutionForIteration":value}
 		self.output[self.objective_function_count] = item
+		self.objective_function_count += 1
 		return value
 		#return self.myown(sol);
 
