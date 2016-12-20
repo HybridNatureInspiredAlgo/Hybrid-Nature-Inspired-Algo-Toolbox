@@ -134,8 +134,8 @@ class BeeColony:
 					self.f[i] = self.ObjValSol
 					self.fitness[i] = self.FitnessSol
 			else:
-			#if the solution i can not be improved, increase its trial counter
-			self.trial[i] = self.trial[i]+1
+				#if the solution i can not be improved, increase its trial counter
+				self.trial[i] = self.trial[i]+1
 
 
 		#end of employed bee phase
