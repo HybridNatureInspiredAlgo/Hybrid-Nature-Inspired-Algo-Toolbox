@@ -17,22 +17,59 @@
   <div class="container-fluid">
       <div class="row">
       <center><h2>Nature Inspired Hybrid Toolbox Input Form</h2></center><br/>
-      <form id="formname" name="formname" class="form-inline" action="http://192.168.0.115:8080/code/html/plotChart.php">
+      <form id="formname" name="formname" class="form-inline" action="http://192.168.0.109:8080/code/html/plotChart.php">
         <div class="col-lg-6">
            <div class="form-inline col-xs-2"></div>
               <div>
                 <button onclick="dropdownlist('algo')" class="btn btn-primary" type='button'>Compare</button>
               </div><br/>
-              <div class="form-inline">
-                  <label for="algo1">Select Algo1</label>
-                  <select class="form-control" name="algo1" id="algo1"><option >Select Algo1</option></select>
-                </div><br/>
-              <div class="form-inline">
-                  <label for="algo2">Select Algo2:</label>
-                  <select class="form-control" name="algo2" id="algo2"><option >Select Algo2</option></select>
-                </div><br/>
+              <div class="form-inline col-xs-2">
+                  <label for="algo1">Select Algo1 </label>
+              </div>
+              <div>
+                  <select class="form-control" name="algo1" id="algo1" onchange="algoselection1(this.options[this.selectedIndex].value)">
+                    <option>Select Algorhithm</option>
+                    <option value='pso'> PSO </option>
+                    <option value='abc'> ABC </option>
+                    <option value='bat'> BAT </option>
+                    <option value='firefly'> FIREFLY </option>
+                    <option value='grey_wolf'> GRAY WOLF </option>
+                  </select>
+              </div><br/>
 
-                  <input type="text" class="form-control" name="type" value='single' min=1 id="par">
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v11"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v12"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v13"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v14"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v15"> </div>
+
+              <br/>
+
+              <div id='compare' style="display:none">
+              <div class="form-inline col-xs-2">
+                  <label for="algo2">Select Algo2:</label>
+                  </div>
+                  <div>
+                  <select class="form-control" name="algo2" id="algo2" onchange="algoselection2(this.options[this.selectedIndex].value)" ><option >Select Algo2</option></select>
+                </div><br/>
+              </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v21"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v22"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v23"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v24"> </div>
+              <div class="form-inline col-xs-2"></div>
+              <div> <input type="hidden" class="form-control" name="" value='' id="v25"> </div>
+
+                  <input type="hidden" class="form-control" name="type" value='single' min=1 id="type">
 
           </div>
           <div class="col-lg-6">
@@ -57,13 +94,23 @@
                   <div>
                   <input type="number" class="form-control" name="iteration" min=1 id="iter">
                 </div><br/>
-                <div class="form-inline">
+                <div class="form-inline col-xs-2">
                   <label for="func">Select BenchMark Functions:</label>
+                  </div>
+                  <div>
                   <select class="form-control" name="functionCode" id="func">
                     <option >Select Benchmark Function</option>
-                    <option value="1"> f(x) = x&#8321; &sup2; + x&#8322; &sup3; + 1 </option>
-                    <option value="2"> f(x) = x&sup3; + x +1 </option>
-                    <option value="3"> f(x) = x&#8321; &sup2; + x&#8322; &sup2; </option>
+                    <option value="1"> 1. Ackley Function</option>
+                    <option value="2"> 2. Cross In Tray </option>
+                    <option value="3"> 3. Egg Holder</option>
+                    <option value="4"> 4. Levy</option>
+                    <option value="5"> 5. Rastrigin</option>
+                    <option value="6"> 6. Shubert</option>
+                    <option value="7"> 7. Sphere</option>
+                    <option value="8"> 8. Matyas</option>
+                    <option value="9"> 9. RosenBrock</option>
+                    <option value="10">10. Easom</option>
+                    <option value="11">11. StyblinskiTang</option>
                   </select>
                 </div><br/>
                 <div class="form-inline">
